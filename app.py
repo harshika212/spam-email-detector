@@ -1,5 +1,22 @@
 import streamlit as st
 import pickle
+import re
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+
+# download stopwords (safe for Streamlit Cloud)
+nltk.download('stopwords')
+
+stemmer = PorterStemmer()
+stop_words = set(stopwords.words('english'))
+
+def clean_text(text):
+    text = text.lower()
+    text = re.sub(r'[^a-zA-Z]', ' ', text)
+    words = text.split()
+    words = [stemmer.stem(w) for w in words if w not in stop_words]
+    return " ".join(words)
 st.set_page_config(
     page_title="Spam Email Detector",
     page_icon="📧",
@@ -48,5 +65,6 @@ if predict_btn and msg.strip() != "":
         st.error(f"🚨 **Spam Message** ({confidence:.2f}% confidence)")
     else:
         st.success(f"✅ **Not Spam** ({confidence:.2f}% confidence)")
+
 
 
