@@ -9,7 +9,7 @@ st.markdown("""
 <style>
 .main-title {
     text-align: center;
-    font-size: 42px;
+    font-size: 54px;
     font-weight: bold;
     color: #4CAF50;
 }
@@ -48,3 +48,4 @@ if predict_btn and msg.strip() != "":
         st.error(f"🚨 **Spam Message** ({confidence:.2f}% confidence)")
     else:
         st.success(f"✅ **Not Spam** ({confidence:.2f}% confidence)")
+
